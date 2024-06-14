@@ -1,36 +1,38 @@
 public class PosterManager {
-    private PosterRepository repo;
+    private PosterMovie[] movies = new PosterMovie[0];
     private int countRecords = 10;
 
-    public PosterManager(PosterRepository repo) {
-        this.repo = repo;
+    public PosterManager() {
     }
 
-    public PosterManager(PosterRepository repo, int countRecords) {
-        this.repo = repo;
+    public PosterManager(int countRecords) {
         this.countRecords = countRecords;
     }
 
-    public void add(String item) {
-        repo.save(item);
+    public void add(PosterMovie item) {
+        PosterMovie[] tmp = new PosterMovie[movies.length + 1];
+        for (int i = 0; i < movies.length; i++) {
+            tmp[i] = movies[i];
+        }
+        tmp[tmp.length - 1] = item;
+        movies = tmp;
     }
 
-    public String[] findAll() {
-        return repo.getItems();
+    public PosterMovie[] findAll() {
+        return movies;
     }
 
-    public String[] findLast() {
+    public PosterMovie[] findLast() {
         int resultLength;
-        String[] items = findAll();
-        if (items.length > countRecords) {
+        if (movies.length > countRecords) {
             resultLength = countRecords;
         } else {
-            resultLength = items.length;
+            resultLength = movies.length;
         }
-        String[] reversed = new String[resultLength];
+        PosterMovie[] reversed = new PosterMovie[resultLength];
 
         for (int i = 0; i < resultLength; i++) {
-            reversed[i] = items[items.length - 1 - i];
+            reversed[i] = movies[movies.length - 1 - i];
         }
 
         return reversed;
