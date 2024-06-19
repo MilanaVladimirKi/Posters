@@ -1,7 +1,15 @@
+package ru.topacademy.javaqa.domain;
+
 public class PosterMovie {
     private String name = "";
     private String style = "";
     private int age = 0;
+
+    public PosterMovie(String name, String style, int age) {
+        this.setStyle(style);
+        this.setName(name);
+        this.setAge(age);
+    }
 
     public String getName() {
         return name;

@@ -1,3 +1,5 @@
+package ru.topacademy.javaqa.domain;
+
 public class PosterManager {
     private PosterMovie[] movies = new PosterMovie[0];
     private int countRecords = 10;
@@ -18,6 +20,12 @@ public class PosterManager {
         movies = tmp;
     }
 
+    public void addMany(PosterMovie[] items) {
+        for (int i = 0; i < items.length; i++) {
+            add(items[i]);
+        }
+    }
+
     public PosterMovie[] findAll() {
         return movies;
     }
@@ -34,7 +42,6 @@ public class PosterManager {
         for (int i = 0; i < resultLength; i++) {
             reversed[i] = movies[movies.length - 1 - i];
         }
-
         return reversed;
     }
 }

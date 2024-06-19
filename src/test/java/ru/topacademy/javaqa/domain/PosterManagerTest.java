@@ -1,58 +1,22 @@
+package ru.topacademy.javaqa.domain;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PosterManagerTest {
 
     private PosterMovie[] setItems() {
-        PosterMovie item1 = new PosterMovie();
-        item1.setName("Мизери");
-        item1.setStyle("триллер");
-        item1.setAge(18);
-
-        PosterMovie item2 = new PosterMovie();
-        item2.setName("Волчица");
-        item2.setStyle("боевик");
-        item2.setAge(18);
-
-        PosterMovie item3 = new PosterMovie();
-        item3.setName("Брат");
-        item3.setStyle("боевик");
-        item3.setAge(18);
-
-        PosterMovie item4 = new PosterMovie();
-        item4.setName("Титаник");
-        item4.setStyle("драма");
-        item4.setAge(16);
-
-        PosterMovie item5 = new PosterMovie();
-        item5.setName("Монстр");
-        item5.setStyle("триллер");
-        item5.setAge(18);
-
-        PosterMovie item6 = new PosterMovie();
-        item6.setName("Леон");
-        item6.setStyle("боевик");
-        item6.setAge(12);
-
-        PosterMovie item7 = new PosterMovie();
-        item7.setName("Эмели");
-        item7.setStyle("драма");
-        item7.setAge(12);
-
-        PosterMovie item8 = new PosterMovie();
-        item8.setName("Психо");
-        item8.setStyle("триллер");
-        item8.setAge(18);
-
-        PosterMovie item9 = new PosterMovie();
-        item9.setName("Птицы");
-        item9.setStyle("триллер");
-        item9.setAge(18);
-
-        PosterMovie item10 = new PosterMovie();
-        item10.setName("Дорога");
-        item10.setStyle("драма");
-        item10.setAge(18);
+        PosterMovie item1 = new PosterMovie("Мизери", "триллер", 18);
+        PosterMovie item2 = new PosterMovie("Волчица", "боевик", 18);
+        PosterMovie item3 = new PosterMovie("Брат", "боевик", 18);
+        PosterMovie item4 = new PosterMovie("Титаник", "драма", 16);
+        PosterMovie item5 = new PosterMovie("Монстр", "триллер", 18);
+        PosterMovie item6 = new PosterMovie("Леон", "боевик", 12);
+        PosterMovie item7 = new PosterMovie("Эмели", "драма", 12);
+        PosterMovie item8 = new PosterMovie("Психо", "триллер", 18);
+        PosterMovie item9 = new PosterMovie("Птицы", "триллер", 18);
+        PosterMovie item10 = new PosterMovie("Дорога", "драма", 18);
 
         PosterMovie[] items = new PosterMovie[10];;
         items[0] = item1;
@@ -70,17 +34,12 @@ public class PosterManagerTest {
 
     @Test
     public void testAll() {
-
         PosterManager manager = new PosterManager();
         PosterMovie[] items = setItems();
-
-        for (int i = 0; i < items.length; i++) {
-            manager.add(items[i]);
-        }
+        manager.addMany(items);
 
         PosterMovie[] expected = items;
         PosterMovie[] actual = manager.findAll();
-
         Assertions.assertArrayEquals(expected, actual);
     }
 
@@ -88,14 +47,10 @@ public class PosterManagerTest {
     public void testFindLastStandart() {
         PosterManager manager = new PosterManager();
         PosterMovie[] items = setItems();
-
-        for (int i = 0; i < items.length; i++) {
-            manager.add(items[i]);
-        }
+        manager.addMany(items);
 
         PosterMovie[] expected = {items[9], items[8], items[7], items[6], items[5], items[4], items[3], items[2], items[1], items[0]};
         PosterMovie[] actual = manager.findLast();
-
         Assertions.assertArrayEquals(expected, actual);
     }
 
@@ -103,14 +58,10 @@ public class PosterManagerTest {
     public void testFindLastMin() {
         PosterManager manager = new PosterManager(5);
         PosterMovie[] items = setItems();
-
-        for (int i = 0; i < items.length; i++) {
-            manager.add(items[i]);
-        }
+        manager.addMany(items);
 
         PosterMovie[] expected = {items[9], items[8], items[7], items[6], items[5]};
         PosterMovie[] actual = manager.findLast();
-
         Assertions.assertArrayEquals(expected, actual);
     }
 
@@ -118,14 +69,23 @@ public class PosterManagerTest {
     public void testFindLastMax() {
         PosterManager manager = new PosterManager(15);
         PosterMovie[] items = setItems();
-
-        for (int i = 0; i < items.length; i++) {
-            manager.add(items[i]);
-        }
+        manager.addMany(items);
 
         PosterMovie[] expected = {items[9], items[8], items[7], items[6], items[5], items[4], items[3], items[2], items[1], items[0]};
         PosterMovie[] actual = manager.findLast();
+        Assertions.assertArrayEquals(expected, actual);
+    }
 
+    @Test
+    public void testAddPosterMovie() {
+        PosterMovie movie11 = new PosterMovie("Гостья", "детский", 0);
+        PosterManager manager = new PosterManager();
+        PosterMovie[] items = setItems();
+        manager.addMany(items);
+        manager.add(movie11);
+
+        PosterMovie[] expected = {items[0], items[1], items[2], items[3], items[4], items[5], items[6], items[7], items[8], items[9], movie11};
+        PosterMovie[] actual = manager.findAll();
         Assertions.assertArrayEquals(expected, actual);
     }
 }
