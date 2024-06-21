@@ -6,9 +6,9 @@ public class PosterMovie {
     private int age = 0;
 
     public PosterMovie(String name, String style, int age) {
-        this.setStyle(style);
-        this.setName(name);
-        this.setAge(age);
+        this.style = style;
+        this.name = name;
+        this.age = age;
     }
 
     public String getName() {

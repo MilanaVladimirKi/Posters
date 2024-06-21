@@ -20,12 +20,6 @@ public class PosterManager {
         movies = tmp;
     }
 
-    public void addMany(PosterMovie[] items) {
-        for (int i = 0; i < items.length; i++) {
-            add(items[i]);
-        }
-    }
-
     public PosterMovie[] findAll() {
         return movies;
     }
